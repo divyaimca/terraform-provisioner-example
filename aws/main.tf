@@ -66,7 +66,7 @@ resource "null_resource" "example_provisioner" {
     user = var.ssh_user
     port = var.ssh_port
     agent = true
-    private_key = "${file("${path.module}/../secrets/PriyadarsheeKeys")}"
+    private_key = "${file("${path.module}/./secrets/PriyadarsheeKeys")}"
   }
 
   // copy our example script to the server
@@ -75,7 +75,7 @@ resource "null_resource" "example_provisioner" {
     destination = "/tmp/script1.sh"
   }
 
-  // change permissions to executable and pipe its output into a new file
+  // Remote execution of commands
   provisioner "remote-exec" {
     inline = [
       "sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
@@ -88,9 +88,10 @@ resource "null_resource" "example_provisioner" {
     ]
   }
 
+// Local execution of commands
   provisioner "local-exec" {
     # copy the public-ip file back to CWD, which will be tested
-    command = "scp -i ../secrets/PriyadarsheeKeys -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${var.ssh_user}@${aws_instance.nginx.public_ip}:/tmp/public-ip public-ip"
+    command = "scp -i ./secrets/PriyadarsheeKeys -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${var.ssh_user}@${aws_instance.nginx.public_ip}:/tmp/public-ip public-ip"
   }
 
 }
