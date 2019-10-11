@@ -1,7 +1,7 @@
 # terraform-provisioner-example
 
-## 1st generate the aws_access_key and aws_secret_key  in terraform.tfvars file
-## 2nd create the key private-public pair 
+* 1st generate the aws_access_key and aws_secret_key  in terraform.tfvars file
+* 2nd create the key private-public pair 
   generate a key pair in your local system (ssh-keygen -f PriyadarsheeKeys -t rsa)
   under security and network -> key pair -> upload public key 
 
